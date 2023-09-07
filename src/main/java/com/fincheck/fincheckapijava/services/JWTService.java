@@ -19,7 +19,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JWTService {
     
     @Value("${api.security.token.secret}")
-    private String secret;
+    private String jwtSecret;
 
     public String generateToken(Authentication auth) {
         int weekInMiliseconds = 604800000;
@@ -32,7 +32,7 @@ public class JWTService {
                 .setSubject(user.getId().toString())
                 .setIssuedAt(new Date())
                 .setExpiration(expirationDate)
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
@@ -46,6 +46,6 @@ public class JWTService {
     }
 
     private Jws<Claims> parse(String token) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
     }
 }
