@@ -1,4 +1,4 @@
-package com.fincheck.fincheckapijava.services;
+package com.fincheck.fincheckapijava.security;
 
 import java.util.Date;
 import java.util.Optional;
