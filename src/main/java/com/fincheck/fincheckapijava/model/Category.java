@@ -4,9 +4,11 @@ import java.util.UUID;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.Type;
 
 import com.fincheck.fincheckapijava.model.enums.TransactionType;
 
+import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -38,7 +40,8 @@ public class Category {
     @Column(name = "icon", nullable = false)
     private String icon;
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "type", columnDefinition = "transaction_type", nullable = false)
     @Enumerated(EnumType.STRING)
+    @Type(PostgreSQLEnumType.class)
     private TransactionType type;
 }

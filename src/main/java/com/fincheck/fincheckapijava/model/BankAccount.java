@@ -2,8 +2,11 @@ package com.fincheck.fincheckapijava.model;
 
 import java.util.UUID;
 
+import org.hibernate.annotations.Type;
+
 import com.fincheck.fincheckapijava.model.enums.BankAccountType;
 
+import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -33,7 +36,8 @@ public class BankAccount {
     private String color;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false)
+    @Column(name = "type", columnDefinition = "bank_account_type", nullable = false)
+    @Type(PostgreSQLEnumType.class)
     private BankAccountType type;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = User.class)
