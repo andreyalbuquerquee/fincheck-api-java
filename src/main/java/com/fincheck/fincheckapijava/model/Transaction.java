@@ -42,16 +42,16 @@ public class Transaction {
     @OnDelete(action = OnDeleteAction.SET_NULL)
     private UUID categoryId;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "value")
+    @Column(name = "value", nullable = false)
     private double value;
 
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
     private Timestamp date;
 
-    @Column(name = "type")
+    @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
     private TransactionType type;
 }

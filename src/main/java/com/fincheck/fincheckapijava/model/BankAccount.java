@@ -23,17 +23,17 @@ public class BankAccount {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "initial_balance")
+    @Column(name = "initial_balance", nullable = false)
     private double initialBalance;
 
-    @Column(name = "color")
+    @Column(name = "color", nullable = false)
     private String color;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type")
+    @Column(name = "type", nullable = false)
     private BankAccountType type;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = User.class)

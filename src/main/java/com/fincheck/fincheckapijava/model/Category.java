@@ -32,13 +32,13 @@ public class Category {
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private UUID userId;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "icon")
+    @Column(name = "icon", nullable = false)
     private String icon;
 
-    @Column(name = "type")
+    @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
     private TransactionType type;
 }
