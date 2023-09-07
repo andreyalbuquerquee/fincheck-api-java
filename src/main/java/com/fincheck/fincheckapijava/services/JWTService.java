@@ -1,6 +1,8 @@
 package com.fincheck.fincheckapijava.services;
 
 import java.util.Date;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -8,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import com.fincheck.fincheckapijava.model.User;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -30,5 +34,18 @@ public class JWTService {
                 .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
+    }
+
+    public Optional<UUID> activeUserId(String token) {
+        try {
+            Claims claims = parse(token).getBody();
+            return Optional.ofNullable(UUID.fromString(claims.getSubject()));
+        } catch (Exception e) {
+           return Optional.empty(); 
+        }
+    }
+
+    private Jws<Claims> parse(String token) {
+        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
     }
 }
