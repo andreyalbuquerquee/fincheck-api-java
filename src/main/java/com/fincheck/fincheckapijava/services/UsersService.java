@@ -1,5 +1,6 @@
 package com.fincheck.fincheckapijava.services;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -14,7 +15,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.fincheck.fincheckapijava.model.Category;
 import com.fincheck.fincheckapijava.model.User;
+import com.fincheck.fincheckapijava.model.enums.TransactionType;
 import com.fincheck.fincheckapijava.repository.UsersRepository;
 import com.fincheck.fincheckapijava.security.JWTService;
 import com.fincheck.fincheckapijava.view.model.user.LoginResponse;
@@ -41,6 +44,24 @@ public class UsersService {
         String hashedPassword = passwordEncoder.encode(user.getPassword());
 
         user.setPassword(hashedPassword);
+
+        List<Category> categories = new ArrayList<>();
+
+        categories.add(new Category("Salário", "travel", TransactionType.INCOME));
+        categories.add(new Category("Freelance", "freelance", TransactionType.INCOME));
+        categories.add(new Category("Outro", "other", TransactionType.INCOME));
+
+        categories.add(new Category("Casa", "home", TransactionType.EXPENSE));
+        categories.add(new Category("Alimentação", "food", TransactionType.EXPENSE));
+        categories.add(new Category("Educação", "education", TransactionType.EXPENSE));
+        categories.add(new Category("Lazer", "fun", TransactionType.EXPENSE));
+        categories.add(new Category("Mercado", "grocery", TransactionType.EXPENSE));
+        categories.add(new Category("Roupas", "clothes", TransactionType.EXPENSE));
+        categories.add(new Category("Transporte", "transport", TransactionType.EXPENSE));
+        categories.add(new Category("Outro", "other", TransactionType.EXPENSE));
+
+        
+        user.setCategories(categories);
 
         return usersRepo.save(user);
     }
