@@ -44,4 +44,54 @@ public class Category {
     @Enumerated(EnumType.STRING)
     @Type(PostgreSQLEnumType.class)
     private TransactionType type;
+
+    
+    public Category(String name, String icon, TransactionType type) {
+        this.name = name;
+        this.icon = icon;
+        this.type = type;
+    }
+    
+    //#region Getters and Setters
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public TransactionType getType() {
+        return type;
+    }
+
+    public void setType(TransactionType type) {
+        this.type = type;
+    }
+
+    //#endregion
 }
