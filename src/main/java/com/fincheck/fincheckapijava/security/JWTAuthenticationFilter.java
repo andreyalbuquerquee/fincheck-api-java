@@ -2,7 +2,6 @@ package com.fincheck.fincheckapijava.security;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.InputMismatchException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -36,19 +35,21 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
         Optional<UUID> userId = jwtService.activeUserId(requestToken);
 
-        if (!userId.isPresent()) throw new InputMismatchException("Token inválido.");
+        if (userId.isPresent()) {
+            UserDetails user = customUserDetailsService.loadById(userId.get());
 
-        UserDetails user = customUserDetailsService.loadById(userId.get());
+            // Verify if the user is authenticated, here we could verify the permissions too.
+            UsernamePasswordAuthenticationToken authentication = 
+            new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
 
-        // Verify if the user is authenticated, here we could verify the permissions too.
-        UsernamePasswordAuthenticationToken authentication = 
-        new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+            // Changing the authentication 
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-        // Changing the authentication 
-        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            // Setting the authentication for the spring security context 
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
 
-        // Setting the authentication for the spring security context 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        filterChain.doFilter(request, response);
         
     }
 
