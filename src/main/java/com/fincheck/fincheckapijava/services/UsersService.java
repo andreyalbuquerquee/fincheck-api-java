@@ -63,13 +63,10 @@ public class UsersService {
 
         SecurityContextHolder.getContext().setAuthentication(auth);
 
-        String token = headerPrefix + jwtService.generateToken(auth).substring(7);
+        String token = jwtService.generateToken(auth);
 
         User user = usersRepo.findByEmail(email).get();
 
         return new LoginResponse(token, user);
-    }
-
-    private static final String headerPrefix = "Bearer";
-    
+    }    
 }
