@@ -63,10 +63,8 @@ public class UsersService {
 
         SecurityContextHolder.getContext().setAuthentication(auth);
 
-        String token = jwtService.generateToken(auth);
+        String accessToken = jwtService.generateToken(auth);
 
-        User user = usersRepo.findByEmail(email).get();
-
-        return new LoginResponse(token, user);
+        return new LoginResponse(accessToken);
     }    
 }

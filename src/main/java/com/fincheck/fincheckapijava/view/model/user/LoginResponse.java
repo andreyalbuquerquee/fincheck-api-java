@@ -1,30 +1,21 @@
 package com.fincheck.fincheckapijava.view.model.user;
 
-import com.fincheck.fincheckapijava.model.User;
 
 public class LoginResponse {
-    String token;
-    User user;
+    String accessToken;
 
     public LoginResponse() {}
 
-    public LoginResponse(String token, User user) {
-        this.token = token;
-        this.user = user;
+    public LoginResponse(String token) {
+        this.accessToken = token;
     }
     
     //#region Getters and Setters
-    public String getToken() {
-        return token;
+    public String getAccessToken() {
+        return accessToken;
     }
-    public void setToken(String token) {
-        this.token = token;
-    }
-    public User getUser() {
-        return user;
-    }
-    public void setUser(User user) {
-        this.user = user;
+    public void setAccessToken(String token) {
+        this.accessToken = token;
     }
     //#endregion
 }
