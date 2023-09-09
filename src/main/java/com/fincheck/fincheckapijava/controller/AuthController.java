@@ -1,4 +1,4 @@
-package com.fincheck.fincheckapijava.view.controller;
+package com.fincheck.fincheckapijava.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fincheck.fincheckapijava.model.User;
 import com.fincheck.fincheckapijava.services.UsersService;
-import com.fincheck.fincheckapijava.view.model.user.LoginRequest;
+import com.fincheck.fincheckapijava.shared.dtos.LoginRequest;
 
 @RestController
 @RequestMapping("/auth")

@@ -1,4 +1,4 @@
-package com.fincheck.fincheckapijava.view.model.user;
+package com.fincheck.fincheckapijava.shared.dtos;
 
 public class LoginRequest {
     String email;

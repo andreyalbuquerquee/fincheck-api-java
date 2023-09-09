@@ -21,7 +21,7 @@ import com.fincheck.fincheckapijava.model.enums.TransactionType;
 import com.fincheck.fincheckapijava.repository.CategoriesRepository;
 import com.fincheck.fincheckapijava.repository.UsersRepository;
 import com.fincheck.fincheckapijava.security.JWTService;
-import com.fincheck.fincheckapijava.view.model.user.LoginResponse;
+import com.fincheck.fincheckapijava.shared.dtos.LoginResponse;
 
 @Service
 public class UsersService {
