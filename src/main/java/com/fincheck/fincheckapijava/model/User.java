@@ -6,6 +6,8 @@ import java.util.UUID;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fincheck.fincheckapijava.shared.dtos.SignupDto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,6 +31,14 @@ public class User implements UserDetails {
     
     @Column(name = "password", nullable = false)
     private String password;
+
+    public User() {}
+
+    public User(SignupDto signupDto) {
+        this.name = signupDto.name();
+        this.email = signupDto.email();
+        this.password = signupDto.password();
+    }
 
     //#region Getters and Setters
     public UUID getId() {

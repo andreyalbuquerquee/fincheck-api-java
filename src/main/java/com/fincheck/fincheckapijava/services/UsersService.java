@@ -21,7 +21,10 @@ import com.fincheck.fincheckapijava.model.enums.TransactionType;
 import com.fincheck.fincheckapijava.repository.CategoriesRepository;
 import com.fincheck.fincheckapijava.repository.UsersRepository;
 import com.fincheck.fincheckapijava.security.JWTService;
-import com.fincheck.fincheckapijava.shared.dtos.LoginResponse;
+import com.fincheck.fincheckapijava.shared.AccessToken;
+import com.fincheck.fincheckapijava.shared.dtos.SigninDto;
+import com.fincheck.fincheckapijava.shared.dtos.SignupDto;
+
 
 @Service
 public class UsersService {
@@ -40,12 +43,15 @@ public class UsersService {
     @Autowired
     private AuthenticationManager authenticationManager;
     
-    public User create(User user) {
+    public AccessToken create(SignupDto signupDto) {
+        User user = new User(signupDto);
         user.setId(null);
 
         if (getByEmail(user.getEmail()).isPresent()) throw new InputMismatchException();
 
-        String hashedPassword = passwordEncoder.encode(user.getPassword());
+        String password = signupDto.password();
+
+        String hashedPassword = passwordEncoder.encode(password);
 
         user.setPassword(hashedPassword);
 
@@ -68,7 +74,15 @@ public class UsersService {
 
         categoriesRepo.saveAll(categories);
 
-        return user;
+        Authentication auth = authenticationManager.authenticate(
+        new UsernamePasswordAuthenticationToken(user.getEmail(), signupDto.password(), Collections.emptyList())    
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(auth);
+        
+        String accessToken = jwtService.generateToken(auth);
+        
+        return new AccessToken(accessToken);
     }
     
     public List<User> getAll() {
@@ -83,14 +97,14 @@ public class UsersService {
         return usersRepo.findByEmail(email);
     }
 
-    public LoginResponse login(String email, String password) {
+    public AccessToken signin(SigninDto signinDto) {
         Authentication auth = authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(email, password, Collections.emptyList()));
+        new UsernamePasswordAuthenticationToken(signinDto.email(), signinDto.password(), Collections.emptyList()));
 
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         String accessToken = jwtService.generateToken(auth);
 
-        return new LoginResponse(accessToken);
+        return new AccessToken(accessToken);
     }    
 }
