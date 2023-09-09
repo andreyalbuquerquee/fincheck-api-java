@@ -13,7 +13,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,10 +28,10 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = User.class)
+    @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private UUID userId;
+    private User user;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -44,9 +43,11 @@ public class Category {
     @Enumerated(EnumType.STRING)
     @Type(PostgreSQLEnumType.class)
     private TransactionType type;
+    
 
     
-    public Category(String name, String icon, TransactionType type) {
+    public Category(String name, String icon, TransactionType type, User user) {
+        this.user = user;
         this.name = name;
         this.icon = icon;
         this.type = type;
@@ -61,12 +62,12 @@ public class Category {
         this.id = id;
     }
 
-    public UUID getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(UUID userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {

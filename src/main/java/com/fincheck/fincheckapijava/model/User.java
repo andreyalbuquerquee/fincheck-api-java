@@ -1,7 +1,6 @@
 package com.fincheck.fincheckapijava.model;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -12,7 +11,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,10 +29,6 @@ public class User implements UserDetails {
     
     @Column(name = "password", nullable = false)
     private String password;
-    
-    @OneToMany(mappedBy = "users")
-    private List<Category> categories;
-
 
     //#region Getters and Setters
     public UUID getId() {
@@ -63,14 +57,6 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
     }
     //#endregion
 

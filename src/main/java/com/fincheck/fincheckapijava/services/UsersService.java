@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import com.fincheck.fincheckapijava.model.Category;
 import com.fincheck.fincheckapijava.model.User;
 import com.fincheck.fincheckapijava.model.enums.TransactionType;
+import com.fincheck.fincheckapijava.repository.CategoriesRepository;
 import com.fincheck.fincheckapijava.repository.UsersRepository;
 import com.fincheck.fincheckapijava.security.JWTService;
 import com.fincheck.fincheckapijava.view.model.user.LoginResponse;
@@ -27,6 +28,9 @@ public class UsersService {
     @Autowired 
     private UsersRepository usersRepo;
 
+    @Autowired 
+    private CategoriesRepository categoriesRepo;
+    
     @Autowired 
     private PasswordEncoder passwordEncoder;
 
@@ -45,25 +49,26 @@ public class UsersService {
 
         user.setPassword(hashedPassword);
 
+        user = usersRepo.save(user);
+        
         List<Category> categories = new ArrayList<>();
 
-        categories.add(new Category("Salário", "travel", TransactionType.INCOME));
-        categories.add(new Category("Freelance", "freelance", TransactionType.INCOME));
-        categories.add(new Category("Outro", "other", TransactionType.INCOME));
+        categories.add(new Category("Salário", "travel", TransactionType.INCOME, user));
+        categories.add(new Category("Freelance", "freelance", TransactionType.INCOME, user));
+        categories.add(new Category("Outro", "other", TransactionType.INCOME, user));
 
-        categories.add(new Category("Casa", "home", TransactionType.EXPENSE));
-        categories.add(new Category("Alimentação", "food", TransactionType.EXPENSE));
-        categories.add(new Category("Educação", "education", TransactionType.EXPENSE));
-        categories.add(new Category("Lazer", "fun", TransactionType.EXPENSE));
-        categories.add(new Category("Mercado", "grocery", TransactionType.EXPENSE));
-        categories.add(new Category("Roupas", "clothes", TransactionType.EXPENSE));
-        categories.add(new Category("Transporte", "transport", TransactionType.EXPENSE));
-        categories.add(new Category("Outro", "other", TransactionType.EXPENSE));
+        categories.add(new Category("Casa", "home", TransactionType.EXPENSE, user));
+        categories.add(new Category("Alimentação", "food", TransactionType.EXPENSE, user));
+        categories.add(new Category("Educação", "education", TransactionType.EXPENSE, user));
+        categories.add(new Category("Lazer", "fun", TransactionType.EXPENSE, user));
+        categories.add(new Category("Mercado", "grocery", TransactionType.EXPENSE, user));
+        categories.add(new Category("Roupas", "clothes", TransactionType.EXPENSE, user));
+        categories.add(new Category("Transporte", "transport", TransactionType.EXPENSE, user));
+        categories.add(new Category("Outro", "other", TransactionType.EXPENSE, user));
 
-        
-        user.setCategories(categories);
+        categoriesRepo.saveAll(categories);
 
-        return usersRepo.save(user);
+        return user;
     }
     
     public List<User> getAll() {
