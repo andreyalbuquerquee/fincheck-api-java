@@ -14,7 +14,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.fincheck.fincheckapijava.model.Category;
 import com.fincheck.fincheckapijava.model.User;
 import com.fincheck.fincheckapijava.model.enums.TransactionType;
@@ -98,6 +97,12 @@ public class UsersService {
     }
 
     public AccessToken signin(SigninDto signinDto) {
+        Optional<User> user = usersRepo.findByEmail(signinDto.email());
+
+        if (user.isEmpty()) {
+            throw new InputMismatchException("Deu ruim");   
+        }
+        
         Authentication auth = authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(signinDto.email(), signinDto.password(), Collections.emptyList()));
 
