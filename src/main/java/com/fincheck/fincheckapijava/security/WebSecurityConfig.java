@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,7 +13,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -27,6 +25,13 @@ public class WebSecurityConfig {
     @Autowired
     private JWTAuthenticationFilter jwtAuthenticationFilter;
 
+    @Autowired
+    private final CustomBasicAuthenticationEntryPoint customBasicAuthenticationEntryPoint;
+    
+    public WebSecurityConfig(CustomBasicAuthenticationEntryPoint customBasicAuthenticationEntryPoint) {
+        this.customBasicAuthenticationEntryPoint = customBasicAuthenticationEntryPoint;
+    } 
+
     // Global config to access routes
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -37,7 +42,7 @@ public class WebSecurityConfig {
         .requestMatchers(HttpMethod.POST, "/auth/signup").permitAll()
         .requestMatchers(HttpMethod.POST, "/auth/signin").permitAll()
         .anyRequest().authenticated())
-        .exceptionHandling(t -> t.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
+        .httpBasic(t -> t.authenticationEntryPoint(this.customBasicAuthenticationEntryPoint))
         // Before every httpRequest, we shoul use our own filters
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         .build();
