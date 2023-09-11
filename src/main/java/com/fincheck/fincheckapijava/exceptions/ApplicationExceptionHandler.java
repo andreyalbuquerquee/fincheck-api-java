@@ -32,7 +32,7 @@ public class ApplicationExceptionHandler {
     public ResponseEntity<Object> authenticationException(AuthenticationException ex) {
         ExceptionResponse response = new ExceptionResponse("Credenciais inválidas!", "Unauthorized", HttpStatus.UNAUTHORIZED.value());
         
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 
     @ExceptionHandler(ConflictException.class)
