@@ -11,6 +11,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @RestControllerAdvice
 public class ApplicationExceptionHandler {
@@ -31,7 +34,15 @@ public class ApplicationExceptionHandler {
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<Object> authenticationException(AuthenticationException ex) {
-        ExceptionResponse response = new ExceptionResponse(ex.getMessage(), "Unauthorized", HttpStatus.UNAUTHORIZED.value());
+        String errorMessage = "";
+        
+        if (ex.getMessage().contains("Full authentication is required to access this resource")) {
+            errorMessage = "Invalid access token";
+        } else {
+            errorMessage = ex.getMessage();
+        }
+        
+        ExceptionResponse response = new ExceptionResponse(errorMessage, "Unauthorized", HttpStatus.UNAUTHORIZED.value());
         
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
@@ -49,6 +60,13 @@ public class ApplicationExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
+
+    @ExceptionHandler({EntityNotFoundException.class, NoHandlerFoundException.class})
+    public ResponseEntity<Object> noHandlerFoundException(NoHandlerFoundException ex) {
+        ExceptionResponse response = new ExceptionResponse(ex.getLocalizedMessage(), "Not Found", 404);
+        
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+ }
 
 
 }

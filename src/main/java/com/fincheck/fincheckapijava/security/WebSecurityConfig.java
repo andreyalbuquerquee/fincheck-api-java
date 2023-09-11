@@ -42,7 +42,7 @@ public class WebSecurityConfig {
         .requestMatchers(HttpMethod.POST, "/auth/signup").permitAll()
         .requestMatchers(HttpMethod.POST, "/auth/signin").permitAll()
         .anyRequest().authenticated())
-        .httpBasic(t -> t.authenticationEntryPoint(this.customBasicAuthenticationEntryPoint))
+        .exceptionHandling(exHandler -> exHandler.authenticationEntryPoint(customBasicAuthenticationEntryPoint))
         // Before every httpRequest, we shoul use our own filters
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         .build();
