@@ -47,7 +47,7 @@ public class UsersService {
         User user = new User(signupDto);
         user.setId(null);
 
-        if (getByEmail(user.getEmail()).isPresent()) throw new ConflictException("E-mail em uso!");
+        if (getByEmail(user.getEmail()).isPresent()) throw new ConflictException("E-mail in use");
 
         String password = signupDto.password();
 

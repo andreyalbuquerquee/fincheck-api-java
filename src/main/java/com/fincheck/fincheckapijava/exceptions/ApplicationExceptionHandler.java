@@ -31,7 +31,7 @@ public class ApplicationExceptionHandler {
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<Object> authenticationException(AuthenticationException ex) {
-        ExceptionResponse response = new ExceptionResponse("Credenciais inválidas!", "Unauthorized", HttpStatus.UNAUTHORIZED.value());
+        ExceptionResponse response = new ExceptionResponse(ex.getMessage(), "Unauthorized", HttpStatus.UNAUTHORIZED.value());
         
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
@@ -45,7 +45,7 @@ public class ApplicationExceptionHandler {
 
     @ExceptionHandler(AccountStatusException.class)
     public ResponseEntity<Object> handleAccountStatusException(AccountStatusException ex) {
-        ExceptionResponse response = new ExceptionResponse(ex.getMessage(), "Caiu na account status", HttpStatus.CONFLICT.value());
+        ExceptionResponse response = new ExceptionResponse(ex.getMessage(), "Conflict", HttpStatus.CONFLICT.value());
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
