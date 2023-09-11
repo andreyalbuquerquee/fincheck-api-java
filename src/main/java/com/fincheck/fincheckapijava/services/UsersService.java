@@ -2,7 +2,6 @@ package com.fincheck.fincheckapijava.services;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -14,6 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.fincheck.fincheckapijava.exceptions.ConflictException;
 import com.fincheck.fincheckapijava.model.Category;
 import com.fincheck.fincheckapijava.model.User;
 import com.fincheck.fincheckapijava.model.enums.TransactionType;
@@ -46,7 +47,7 @@ public class UsersService {
         User user = new User(signupDto);
         user.setId(null);
 
-        if (getByEmail(user.getEmail()).isPresent()) throw new InputMismatchException();
+        if (getByEmail(user.getEmail()).isPresent()) throw new ConflictException("E-mail em uso!");
 
         String password = signupDto.password();
 
@@ -96,13 +97,7 @@ public class UsersService {
         return usersRepo.findByEmail(email);
     }
 
-    public AccessToken signin(SigninDto signinDto) {
-        Optional<User> user = usersRepo.findByEmail(signinDto.email());
-
-        if (user.isEmpty()) {
-            throw new InputMismatchException("Deu ruim");   
-        }
-        
+    public AccessToken signin(SigninDto signinDto) {        
         Authentication auth = authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(signinDto.email(), signinDto.password(), Collections.emptyList()));
 
