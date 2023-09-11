@@ -47,7 +47,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
             // Setting the authentication for the spring security context 
             SecurityContextHolder.getContext().setAuthentication(authentication);
-    }
+        }
 
         filterChain.doFilter(request, response);
         

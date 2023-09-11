@@ -59,10 +59,12 @@ public class UsersService {
         
         List<Category> categories = new ArrayList<>();
 
-        categories.add(new Category("Salário", "travel", TransactionType.INCOME, user));
+        // Income
+        categories.add(new Category("Salário", "salary", TransactionType.INCOME, user));
         categories.add(new Category("Freelance", "freelance", TransactionType.INCOME, user));
         categories.add(new Category("Outro", "other", TransactionType.INCOME, user));
 
+        // Expense
         categories.add(new Category("Casa", "home", TransactionType.EXPENSE, user));
         categories.add(new Category("Alimentação", "food", TransactionType.EXPENSE, user));
         categories.add(new Category("Educação", "education", TransactionType.EXPENSE, user));
@@ -70,6 +72,7 @@ public class UsersService {
         categories.add(new Category("Mercado", "grocery", TransactionType.EXPENSE, user));
         categories.add(new Category("Roupas", "clothes", TransactionType.EXPENSE, user));
         categories.add(new Category("Transporte", "transport", TransactionType.EXPENSE, user));
+        categories.add(new Category("Viagem", "travel", TransactionType.EXPENSE, user));
         categories.add(new Category("Outro", "other", TransactionType.EXPENSE, user));
 
         categoriesRepo.saveAll(categories);
