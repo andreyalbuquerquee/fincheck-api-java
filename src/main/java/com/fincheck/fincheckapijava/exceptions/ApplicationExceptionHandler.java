@@ -42,28 +42,28 @@ public class ApplicationExceptionHandler {
             errorMessage = ex.getMessage();
         }
         
-        ExceptionResponse response = new ExceptionResponse(errorMessage, "Unauthorized", HttpStatus.UNAUTHORIZED.value());
+        ResponseException response = new ResponseException(errorMessage, "Unauthorized", HttpStatus.UNAUTHORIZED.value());
         
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 
     @ExceptionHandler(ConflictException.class)
     public ResponseEntity<Object> conflictException(ConflictException ex) {
-        ExceptionResponse response = new ExceptionResponse(ex.getMessage(), "Conflict", HttpStatus.CONFLICT.value());
+        ResponseException response = new ResponseException(ex.getMessage(), "Conflict", HttpStatus.CONFLICT.value());
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
 
     @ExceptionHandler(AccountStatusException.class)
     public ResponseEntity<Object> handleAccountStatusException(AccountStatusException ex) {
-        ExceptionResponse response = new ExceptionResponse(ex.getMessage(), "Conflict", HttpStatus.CONFLICT.value());
+        ResponseException response = new ResponseException(ex.getMessage(), "Conflict", HttpStatus.CONFLICT.value());
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
 
     @ExceptionHandler({EntityNotFoundException.class, NoHandlerFoundException.class})
     public ResponseEntity<Object> noHandlerFoundException(NoHandlerFoundException ex) {
-        ExceptionResponse response = new ExceptionResponse(ex.getLocalizedMessage(), "Not Found", 404);
+        ResponseException response = new ResponseException(ex.getLocalizedMessage(), "Not Found", 404);
         
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
  }

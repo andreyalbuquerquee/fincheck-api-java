@@ -1,11 +1,11 @@
 package com.fincheck.fincheckapijava.exceptions;
 
-public class ExceptionResponse {
+public class ResponseException {
     private String message;
     private String error;
     private int statusCode;
     
-    public ExceptionResponse(String message, String error, int statusCode) {
+    public ResponseException(String message, String error, int statusCode) {
         this.message = message;
         this.error = error;
         this.statusCode = statusCode;
