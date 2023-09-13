@@ -6,9 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.fincheck.fincheckapijava.services.UsersService;
+import com.fincheck.fincheckapijava.services.AuthService;
 import com.fincheck.fincheckapijava.shared.dtos.SigninDto;
 import com.fincheck.fincheckapijava.shared.dtos.SignupDto;
 
@@ -19,7 +20,7 @@ import jakarta.validation.Valid;
 public class AuthController {
     
     @Autowired
-    private UsersService service;
+    private AuthService service;
     
     @PostMapping("/signup")
     public ResponseEntity<Object> signup(@RequestBody @Valid SignupDto signupDto) {
@@ -32,7 +33,7 @@ public class AuthController {
     }
 
     @GetMapping("/teste")
-    public ResponseEntity<Object> teste() {
-        return ResponseEntity.status(HttpStatus.OK).body("Funcionou");
+    public ResponseEntity<Object> teste(@RequestHeader(value = "Authorization") String accessToken) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.getCurrentUserId(accessToken));
     }
 }

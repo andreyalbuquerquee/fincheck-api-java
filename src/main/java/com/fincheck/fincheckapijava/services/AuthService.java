@@ -27,7 +27,7 @@ import com.fincheck.fincheckapijava.shared.dtos.SignupDto;
 
 
 @Service
-public class UsersService {
+public class AuthService {
     @Autowired 
     private UsersRepository usersRepo;
 
@@ -109,5 +109,11 @@ public class UsersService {
         String accessToken = jwtService.generateToken(auth);
 
         return new AccessTokenDto(accessToken);
-    }    
+    }
+    
+    public String getCurrentUserId(String accessToken) {
+        Optional<UUID> currentUserId = jwtService.activeUserId(accessToken.substring(7));
+        
+        return currentUserId.get().toString();
+    }
 }
