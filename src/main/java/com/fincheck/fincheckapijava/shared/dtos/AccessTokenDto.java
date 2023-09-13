@@ -1,9 +1,9 @@
-package com.fincheck.fincheckapijava.shared;
+package com.fincheck.fincheckapijava.shared.dtos;
 
-public class AccessToken {
+public class AccessTokenDto {
     private String accessToken;
 
-    public AccessToken(String accessToken) {
+    public AccessTokenDto(String accessToken) {
         this.accessToken = accessToken;
     }
     

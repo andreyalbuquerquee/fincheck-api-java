@@ -21,7 +21,7 @@ import com.fincheck.fincheckapijava.model.enums.TransactionType;
 import com.fincheck.fincheckapijava.repository.CategoriesRepository;
 import com.fincheck.fincheckapijava.repository.UsersRepository;
 import com.fincheck.fincheckapijava.security.JWTService;
-import com.fincheck.fincheckapijava.shared.AccessToken;
+import com.fincheck.fincheckapijava.shared.dtos.AccessTokenDto;
 import com.fincheck.fincheckapijava.shared.dtos.SigninDto;
 import com.fincheck.fincheckapijava.shared.dtos.SignupDto;
 
@@ -43,7 +43,7 @@ public class UsersService {
     @Autowired
     private AuthenticationManager authenticationManager;
     
-    public AccessToken create(SignupDto signupDto) {
+    public AccessTokenDto create(SignupDto signupDto) {
         User user = new User(signupDto);
         user.setId(null);
 
@@ -85,7 +85,7 @@ public class UsersService {
         
         String accessToken = jwtService.generateToken(auth);
         
-        return new AccessToken(accessToken);
+        return new AccessTokenDto(accessToken);
     }
     
     public List<User> getAll() {
@@ -100,7 +100,7 @@ public class UsersService {
         return usersRepo.findByEmail(email);
     }
 
-    public AccessToken signin(SigninDto signinDto) {        
+    public AccessTokenDto signin(SigninDto signinDto) {        
         Authentication auth = authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(signinDto.email(), signinDto.password(), Collections.emptyList()));
 
@@ -108,6 +108,6 @@ public class UsersService {
 
         String accessToken = jwtService.generateToken(auth);
 
-        return new AccessToken(accessToken);
+        return new AccessTokenDto(accessToken);
     }    
 }
