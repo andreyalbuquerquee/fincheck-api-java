@@ -66,7 +66,5 @@ public class ApplicationExceptionHandler {
         ResponseException response = new ResponseException(ex.getLocalizedMessage(), "Not Found", 404);
         
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
- }
-
-
+    }
 }
