@@ -3,6 +3,7 @@ package com.fincheck.fincheckapijava.exceptions;
 import java.util.HashMap;
 import java.util.Map;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AccountStatusException;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
+
+import com.fasterxml.jackson.core.JsonParseException;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -66,5 +69,12 @@ public class ApplicationExceptionHandler {
         ResponseException response = new ResponseException(ex.getLocalizedMessage(), "Not Found", 404);
         
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+    @ExceptionHandler(JsonParseException.class)
+    public ResponseEntity<Object> handleJsonParseException(JsonParseException ex) {
+        ResponseException response = new ResponseException(ex.getOriginalMessage(), "Bad Request", 400);
+        
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 }
