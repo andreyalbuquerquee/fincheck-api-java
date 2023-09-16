@@ -2,16 +2,18 @@ package com.fincheck.fincheckapijava.model;
 
 import java.util.UUID;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 
 import com.fincheck.fincheckapijava.model.enums.BankAccountType;
+import com.fincheck.fincheckapijava.shared.dtos.CreateBankAccountDto;
 
 import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -40,9 +42,18 @@ public class BankAccount {
     @Type(PostgreSQLEnumType.class)
     private BankAccountType type;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = User.class)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private UUID userId;
+    private User user;
+
+    public BankAccount(CreateBankAccountDto createBankAccountDto, User user) {
+        this.name = createBankAccountDto.name();
+        this.initialBalance = createBankAccountDto.initialBalance();
+        this.color = createBankAccountDto.color();
+        this.type = BankAccountType.valueOf(createBankAccountDto.type());
+        this.user = user;
+    }
 
     //#region Getters and Setters
     public UUID getId() {
@@ -86,11 +97,11 @@ public class BankAccount {
     }
 
     public UUID getUserId() {
-        return userId;
+        return user.getId();
     }
 
-    public void setUserId(UUID userId) {
-        this.userId = userId;
+    public void setUserId(User userId) {
+        this.user = userId;
     }
     //#endregion
 }
