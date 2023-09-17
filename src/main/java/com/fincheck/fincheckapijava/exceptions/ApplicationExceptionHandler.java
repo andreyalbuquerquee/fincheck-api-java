@@ -22,7 +22,7 @@ import jakarta.persistence.EntityNotFoundException;
 public class ApplicationExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleInvalidArgument(MethodArgumentNotValidException ex) {
+    public Map<String, String> handleInvalidArgumentException(MethodArgumentNotValidException ex) {
         Map<String, String> errorMap = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(error -> {
             errorMap.put(error.getField(), error.getDefaultMessage());
@@ -31,12 +31,12 @@ public class ApplicationExceptionHandler {
     }
 
     @ExceptionHandler(UnauthorizedException.class)
-    public ResponseEntity<Object> unauthorizedException(UnauthorizedException ex) {
+    public ResponseEntity<Object> handleUnauthorizedException(UnauthorizedException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
     }
 
     @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<Object> authenticationException(AuthenticationException ex) {
+    public ResponseEntity<Object> handleAuthenticationException(AuthenticationException ex) {
         String errorMessage = "";
         
         if (ex.getMessage().contains("Full authentication is required to access this resource")) {
@@ -50,8 +50,15 @@ public class ApplicationExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 
+    @ExceptionHandler(NotFoundException.class) 
+    public ResponseEntity<Object> handleNotFoundException(NotFoundException ex) {
+        ResponseException response = new ResponseException(ex.getMessage(), "Not Found", HttpStatus.NOT_FOUND.value());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+    
     @ExceptionHandler(ConflictException.class)
-    public ResponseEntity<Object> conflictException(ConflictException ex) {
+    public ResponseEntity<Object> handleConflictException(ConflictException ex) {
         ResponseException response = new ResponseException(ex.getMessage(), "Conflict", HttpStatus.CONFLICT.value());
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
@@ -66,7 +73,7 @@ public class ApplicationExceptionHandler {
 
     @ExceptionHandler({EntityNotFoundException.class, NoHandlerFoundException.class})
     public ResponseEntity<Object> noHandlerFoundException(NoHandlerFoundException ex) {
-        ResponseException response = new ResponseException(ex.getLocalizedMessage(), "Not Found", 404);
+        ResponseException response = new ResponseException(ex.getLocalizedMessage(), "Not Found", HttpStatus.NOT_FOUND.value());
         
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
