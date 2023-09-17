@@ -22,7 +22,7 @@ public class BankAccountController {
 
     
     @PostMapping("/teste")
-    public ResponseEntity<Object> teste(@RequestHeader(value = "Authorization") String accessToken, @RequestBody @Valid BankAccountDto createBankAccountDto) {
+    public ResponseEntity<Object> create(@RequestHeader(value = "Authorization") String accessToken, @RequestBody @Valid BankAccountDto createBankAccountDto) {
         return ResponseEntity.status(HttpStatus.OK).body(bankAccountService.create(accessToken, createBankAccountDto));
     }
 }
