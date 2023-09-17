@@ -32,17 +32,17 @@ public class Transaction {
     @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = User.class)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private UUID userId;
+    private User userId;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = BankAccount.class)
     @JoinColumn(name = "bank_account_id", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private UUID bankAccountId;
+    private BankAccount bankAccountId;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true, targetEntity = Category.class)
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = true)
     @OnDelete(action = OnDeleteAction.SET_NULL)
-    private UUID categoryId;
+    private Category categoryId;
 
     @Column(name = "name", nullable = false)
     private String name;
