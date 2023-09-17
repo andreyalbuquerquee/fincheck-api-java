@@ -47,11 +47,13 @@ public class BankAccount {
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
-    public BankAccount(BankAccountDto createBankAccountDto, User user) {
-        this.name = createBankAccountDto.name();
-        this.initialBalance = createBankAccountDto.initialBalance();
-        this.color = createBankAccountDto.color();
-        this.type = BankAccountType.valueOf(createBankAccountDto.type());
+    public BankAccount() {}
+    
+    public BankAccount(BankAccountDto bankAccountDto, User user) {
+        this.name = bankAccountDto.name();
+        this.initialBalance = bankAccountDto.initialBalance();
+        this.color = bankAccountDto.color();
+        this.type = BankAccountType.valueOf(bankAccountDto.type());
         this.user = user;
     }
 
