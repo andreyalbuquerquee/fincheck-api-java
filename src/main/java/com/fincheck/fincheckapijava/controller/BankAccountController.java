@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -33,6 +34,11 @@ public class BankAccountController {
     @PutMapping("/{bankAccountId}")
     public ResponseEntity<Object> update(@RequestHeader(value = "Authorization") String accessToken, @PathVariable UUID bankAccountId, @RequestBody @Valid BankAccountDto updateBankAccountDto) {
         return ResponseEntity.status(HttpStatus.OK).body(bankAccountService.update(accessToken, bankAccountId, updateBankAccountDto));
+    }
+
+    @DeleteMapping("/{bankAccountId}")
+    public ResponseEntity<Object> delete(@RequestHeader(value = "Authorization") String accessToken, @PathVariable UUID bankAccountId) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(bankAccountService.delete(accessToken, bankAccountId));
     }
     
 }

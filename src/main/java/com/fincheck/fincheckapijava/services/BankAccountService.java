@@ -46,6 +46,16 @@ public class BankAccountService {
         return bankAccountRepository.save(updatedBankAccount);
     }
 
+    public Object delete(String accessToken, UUID bankAccountId) {
+        Optional<UUID> currentUserId = jwtService.activeUserId(accessToken.substring(7));
+        
+        Optional<User> user = usersRepository.findById(currentUserId.get());
+        validateBankAccountOwnership(user.get(), bankAccountId);
+
+        bankAccountRepository.deleteById(bankAccountId);
+
+        return null;
+    } 
 
 
     private void validateBankAccountOwnership(User user, UUID bankAccountId) throws NotFoundException {
@@ -54,5 +64,6 @@ public class BankAccountService {
         if(!bankAccount.isPresent()) {
             throw new NotFoundException("Bank account not found");
         }
-    } 
+    }
+
 }
