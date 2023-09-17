@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fincheck.fincheckapijava.exceptions.NotFoundException;
 import com.fincheck.fincheckapijava.model.BankAccount;
 import com.fincheck.fincheckapijava.model.User;
 import com.fincheck.fincheckapijava.repository.BankAccountRepository;
@@ -31,4 +32,27 @@ public class BankAccountService {
         BankAccount bankAccount = new BankAccount(createBankAccountDto, user.get());
         return bankAccountRepository.save(bankAccount);
     }
+
+    public BankAccount update(String accessToken, UUID bankAccountId, BankAccountDto updateBankAccountDto) {
+        Optional<UUID> currentUserId = jwtService.activeUserId(accessToken.substring(7));
+        
+        Optional<User> user = usersRepository.findById(currentUserId.get());
+        validateBankAccountOwnership(user.get(), bankAccountId);
+        
+        
+        BankAccount updatedBankAccount = new BankAccount(updateBankAccountDto, user.get());
+        updatedBankAccount.setId(bankAccountId);
+
+        return bankAccountRepository.save(updatedBankAccount);
+    }
+
+
+
+    private void validateBankAccountOwnership(User user, UUID bankAccountId) throws NotFoundException {
+        Optional<BankAccount> bankAccount = bankAccountRepository.findByIdAndUser(bankAccountId, user);
+
+        if(!bankAccount.isPresent()) {
+            throw new NotFoundException("Bank account not found");
+        }
+    } 
 }
