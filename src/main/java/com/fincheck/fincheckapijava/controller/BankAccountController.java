@@ -21,8 +21,9 @@ public class BankAccountController {
     BankAccountService bankAccountService;
 
     
-    @PostMapping("/teste")
+    @PostMapping()
     public ResponseEntity<Object> create(@RequestHeader(value = "Authorization") String accessToken, @RequestBody @Valid BankAccountDto createBankAccountDto) {
         return ResponseEntity.status(HttpStatus.OK).body(bankAccountService.create(accessToken, createBankAccountDto));
     }
+    
 }
