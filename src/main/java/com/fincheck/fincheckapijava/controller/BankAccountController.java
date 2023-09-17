@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fincheck.fincheckapijava.services.BankAccountService;
-import com.fincheck.fincheckapijava.shared.dtos.CreateBankAccountDto;
+import com.fincheck.fincheckapijava.shared.dtos.BankAccountDto;
 
 import jakarta.validation.Valid;
 
@@ -22,7 +22,7 @@ public class BankAccountController {
 
     
     @PostMapping("/teste")
-    public ResponseEntity<Object> teste(@RequestHeader(value = "Authorization") String accessToken, @RequestBody @Valid CreateBankAccountDto createBankAccountDto) {
+    public ResponseEntity<Object> teste(@RequestHeader(value = "Authorization") String accessToken, @RequestBody @Valid BankAccountDto createBankAccountDto) {
         return ResponseEntity.status(HttpStatus.OK).body(bankAccountService.create(accessToken, createBankAccountDto));
     }
 }

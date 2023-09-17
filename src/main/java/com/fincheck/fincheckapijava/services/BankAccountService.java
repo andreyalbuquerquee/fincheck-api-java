@@ -11,7 +11,7 @@ import com.fincheck.fincheckapijava.model.User;
 import com.fincheck.fincheckapijava.repository.BankAccountRepository;
 import com.fincheck.fincheckapijava.repository.UsersRepository;
 import com.fincheck.fincheckapijava.security.JWTService;
-import com.fincheck.fincheckapijava.shared.dtos.CreateBankAccountDto;
+import com.fincheck.fincheckapijava.shared.dtos.BankAccountDto;
 
 @Service
 public class BankAccountService {
@@ -24,7 +24,7 @@ public class BankAccountService {
     @Autowired
     JWTService jwtService;
 
-    public BankAccount create(String accessToken, CreateBankAccountDto createBankAccountDto) {
+    public BankAccount create(String accessToken, BankAccountDto createBankAccountDto) {
         Optional<UUID> currentUserId = jwtService.activeUserId(accessToken.substring(7));
         Optional<User> user = usersRepository.findById(currentUserId.get());        
 

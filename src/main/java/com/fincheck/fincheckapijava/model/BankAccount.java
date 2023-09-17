@@ -7,7 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 
 import com.fincheck.fincheckapijava.model.enums.BankAccountType;
-import com.fincheck.fincheckapijava.shared.dtos.CreateBankAccountDto;
+import com.fincheck.fincheckapijava.shared.dtos.BankAccountDto;
 
 import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
 import jakarta.persistence.Column;
@@ -47,7 +47,7 @@ public class BankAccount {
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
-    public BankAccount(CreateBankAccountDto createBankAccountDto, User user) {
+    public BankAccount(BankAccountDto createBankAccountDto, User user) {
         this.name = createBankAccountDto.name();
         this.initialBalance = createBankAccountDto.initialBalance();
         this.color = createBankAccountDto.color();

@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-public record CreateBankAccountDto(
+public record BankAccountDto(
     
     @NotEmpty(message = "Name may not be empty!")
     @Pattern(regexp = "^[a-zA-Z\s]*$", message = "Name has to be only text")
