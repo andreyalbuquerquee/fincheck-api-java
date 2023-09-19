@@ -44,7 +44,8 @@ public class Category {
     @Type(PostgreSQLEnumType.class)
     private TransactionType type;
     
-
+    public Category() {}
+    
     
     public Category(String name, String icon, TransactionType type, User user) {
         this.user = user;
@@ -62,12 +63,12 @@ public class Category {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public UUID getUserId() {
+        return user.getId();
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(User userId) {
+        this.user = userId;
     }
 
     public String getName() {
