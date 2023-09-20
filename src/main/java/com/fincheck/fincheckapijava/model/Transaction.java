@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 
 import com.fincheck.fincheckapijava.model.enums.TransactionType;
+import com.fincheck.fincheckapijava.shared.dtos.TransactionDto;
 
 import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
 import jakarta.persistence.Column;
@@ -32,17 +33,17 @@ public class Transaction {
     @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = User.class)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private User userId;
+    private User user;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = BankAccount.class)
     @JoinColumn(name = "bank_account_id", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private BankAccount bankAccountId;
+    private BankAccount bankAccount;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true, targetEntity = Category.class)
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = true)
     @OnDelete(action = OnDeleteAction.SET_NULL)
-    private Category categoryId;
+    private Category category;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -57,4 +58,81 @@ public class Transaction {
     @Enumerated(EnumType.STRING)
     @Type(PostgreSQLEnumType.class)
     private TransactionType type;
+
+    public Transaction() {}
+
+    public Transaction(TransactionDto transactionDto, User user, BankAccount bankAccount, Category category) {
+        this.user = user;
+        this.bankAccount = bankAccount;
+        this.category = category;
+        this.name = transactionDto.name();
+        this.value = transactionDto.value();
+        this.date = transactionDto.date();
+        this.type = TransactionType.valueOf(transactionDto.type());
+    }
+    
+    
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public UUID getUserId() {
+        return user.getId();
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public UUID getBankAccountId() {
+        return bankAccount.getId();
+    }
+
+    public void setBankAccount(BankAccount bankAccount) {
+        this.bankAccount = bankAccount;
+    }
+
+    public UUID getCategoryId() {
+        return category.getId();
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
+
+    public TransactionType getType() {
+        return type;
+    }
+
+    public void setType(TransactionType type) {
+        this.type = type;
+    }
 }
