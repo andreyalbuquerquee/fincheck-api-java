@@ -1,6 +1,6 @@
 package com.fincheck.fincheckapijava.shared.dtos;
 
-import java.sql.Timestamp;
+import java.util.Calendar;
 
 import com.fincheck.fincheckapijava.validation.ValidateTransactionType;
 
@@ -26,7 +26,7 @@ public record TransactionDto(
     double value,
 
     @NotNull(message = "Date may not be null!")
-    Timestamp date,
+    Calendar date,
 
     @ValidateTransactionType(message = "type must be one of the following values: INCOME, EXPENSE")
     String type
