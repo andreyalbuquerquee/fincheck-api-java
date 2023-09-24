@@ -1,6 +1,9 @@
 package com.fincheck.fincheckapijava.model;
 
+
 import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.TimeZone;
 import java.util.UUID;
 
 import org.hibernate.annotations.OnDelete;
@@ -52,7 +55,7 @@ public class Transaction {
     private double value;
 
     @Column(name = "date", nullable = false)
-    private Timestamp date;
+    private Calendar date;
 
     @Column(name = "type", columnDefinition = "transaction_type", nullable = false)
     @Enumerated(EnumType.STRING)
@@ -68,6 +71,7 @@ public class Transaction {
         this.name = transactionDto.name();
         this.value = transactionDto.value();
         this.date = transactionDto.date();
+        this.date.setTimeZone(TimeZone.getDefault());
         this.type = TransactionType.valueOf(transactionDto.type());
     }
     
@@ -121,11 +125,12 @@ public class Transaction {
     }
 
     public Timestamp getDate() {
-        return date;
+        return new Timestamp(date.getTimeInMillis() - 10800000);
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Calendar date) {
         this.date = date;
+        this.date.setTimeZone(TimeZone.getDefault());
     }
 
     public TransactionType getType() {
