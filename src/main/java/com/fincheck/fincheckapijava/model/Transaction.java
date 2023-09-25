@@ -32,7 +32,7 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = User.class)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -62,7 +62,8 @@ public class Transaction {
     @Type(PostgreSQLEnumType.class)
     private TransactionType type;
 
-    public Transaction() {}
+    public Transaction() {
+    }
 
     public Transaction(TransactionDto transactionDto, User user, BankAccount bankAccount, Category category) {
         this.user = user;
@@ -74,8 +75,8 @@ public class Transaction {
         this.date.setTimeZone(TimeZone.getDefault());
         this.type = TransactionType.valueOf(transactionDto.type());
     }
-    
-    
+
+
     public UUID getId() {
         return id;
     }
