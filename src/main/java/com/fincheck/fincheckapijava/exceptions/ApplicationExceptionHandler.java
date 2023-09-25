@@ -38,25 +38,25 @@ public class ApplicationExceptionHandler {
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<Object> handleAuthenticationException(AuthenticationException ex) {
         String errorMessage = "";
-        
+
         if (ex.getMessage().contains("Full authentication is required to access this resource")) {
             errorMessage = "Invalid access token";
         } else {
             errorMessage = ex.getMessage();
         }
-        
+
         ResponseException response = new ResponseException(errorMessage, "Unauthorized", HttpStatus.UNAUTHORIZED.value());
-        
+
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 
-    @ExceptionHandler(NotFoundException.class) 
+    @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Object> handleNotFoundException(NotFoundException ex) {
         ResponseException response = new ResponseException(ex.getMessage(), "Not Found", HttpStatus.NOT_FOUND.value());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
-    
+
     @ExceptionHandler(ConflictException.class)
     public ResponseEntity<Object> handleConflictException(ConflictException ex) {
         ResponseException response = new ResponseException(ex.getMessage(), "Conflict", HttpStatus.CONFLICT.value());
@@ -74,14 +74,14 @@ public class ApplicationExceptionHandler {
     @ExceptionHandler({EntityNotFoundException.class, NoHandlerFoundException.class})
     public ResponseEntity<Object> noHandlerFoundException(NoHandlerFoundException ex) {
         ResponseException response = new ResponseException(ex.getLocalizedMessage(), "Not Found", HttpStatus.NOT_FOUND.value());
-        
+
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
     @ExceptionHandler(JsonParseException.class)
     public ResponseEntity<Object> handleJsonParseException(JsonParseException ex) {
         ResponseException response = new ResponseException(ex.getOriginalMessage(), "Bad Request", 400);
-        
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 }
