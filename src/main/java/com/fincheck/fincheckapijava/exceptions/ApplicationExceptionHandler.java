@@ -37,7 +37,7 @@ public class ApplicationExceptionHandler {
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<Object> handleAuthenticationException(AuthenticationException ex) {
-        String errorMessage = "";
+        String errorMessage;
 
         if (ex.getMessage().contains("Full authentication is required to access this resource")) {
             errorMessage = "Invalid access token";
@@ -81,6 +81,21 @@ public class ApplicationExceptionHandler {
     @ExceptionHandler(JsonParseException.class)
     public ResponseEntity<Object> handleJsonParseException(JsonParseException ex) {
         ResponseException response = new ResponseException(ex.getOriginalMessage(), "Bad Request", 400);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex) {
+        String errorMessage;
+
+        if (ex.getMessage().contains("No enum constant")) {
+            errorMessage = "Type must be one of the following values: INCOME, EXPENSE";
+        } else {
+            errorMessage = ex.getMessage();
+        }
+        
+        ResponseException response = new ResponseException(errorMessage, "Bad Request", 400);
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
