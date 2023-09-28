@@ -2,20 +2,20 @@ package com.fincheck.fincheckapijava.shared.dtos;
 
 import java.util.Calendar;
 
-import com.fincheck.fincheckapijava.validation.ValidateTransactionType;
+import com.fincheck.fincheckapijava.validation.IsUuid;
+import com.fincheck.fincheckapijava.validation.IsTransactionType;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 
 public record TransactionDto(
     @NotEmpty(message = "bank account id may not be empty!")
-    @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$", message = "Inform a valid UUID")
+    @IsUuid
     String bankAccountId,
 
     @NotEmpty(message = "category id may not be empty!")
-    @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$", message = "Inform a valid UUID")
+    @IsUuid
     String categoryId,
 
     @NotEmpty(message = "Name may not be empty!")
@@ -28,6 +28,6 @@ public record TransactionDto(
     @NotNull(message = "Date may not be null!")
     Calendar date,
 
-    @ValidateTransactionType(message = "type must be one of the following values: INCOME, EXPENSE")
+    @IsTransactionType()
     String type
 ) { }
