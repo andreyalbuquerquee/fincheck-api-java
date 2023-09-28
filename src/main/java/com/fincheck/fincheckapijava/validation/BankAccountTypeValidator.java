@@ -5,7 +5,7 @@ import java.util.List;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class BankAccountTypeValidator implements ConstraintValidator<ValidateBankAccountType, String> {
+public class BankAccountTypeValidator implements ConstraintValidator<BankAccountType, String> {
 
     @Override
     public boolean isValid(String bankAccountType, ConstraintValidatorContext context) {

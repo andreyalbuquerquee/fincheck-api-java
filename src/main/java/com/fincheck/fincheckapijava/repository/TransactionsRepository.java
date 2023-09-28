@@ -2,7 +2,10 @@ package com.fincheck.fincheckapijava.repository;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+
+import com.fincheck.fincheckapijava.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,6 +13,8 @@ import org.springframework.data.repository.query.Param;
 import com.fincheck.fincheckapijava.model.Transaction;
 
 public interface TransactionsRepository extends JpaRepository<Transaction, UUID> {
+    Optional<Transaction> findByIdAndUser(UUID id, User user);
+
     @Query(value = "SELECT * FROM transactions WHERE user_id = :userId AND date >= :startDate AND date < :endDate",
             nativeQuery = true)
     List<Transaction> findByUserAndDate(@Param("userId") UUID userId, @Param("startDate") Calendar startDate, @Param(

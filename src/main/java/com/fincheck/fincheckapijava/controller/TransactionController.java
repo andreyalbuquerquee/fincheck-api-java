@@ -2,18 +2,14 @@ package com.fincheck.fincheckapijava.controller;
 
 import java.util.UUID;
 
+import com.fincheck.fincheckapijava.model.enums.TransactionType;
+import com.fincheck.fincheckapijava.validation.IsTransactionType;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.fincheck.fincheckapijava.model.enums.TransactionType;
 import com.fincheck.fincheckapijava.services.TransactionService;
 import com.fincheck.fincheckapijava.shared.dtos.TransactionDto;
 
@@ -26,7 +22,7 @@ public class TransactionController {
 
     @PostMapping
     public ResponseEntity<Object> create(@RequestHeader(value = "Authorization") String accessToken,
-                                         @RequestBody TransactionDto createTransactionDto) {
+                                         @RequestBody @Valid TransactionDto createTransactionDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(transactionService.create(
                 accessToken,
                 createTransactionDto));
@@ -38,7 +34,7 @@ public class TransactionController {
             @RequestParam int month,
             @RequestParam int year,
             @RequestParam(required = false) UUID bankAccountId,
-            @RequestParam(required = false) TransactionType type
+            @RequestParam(required = false) @IsTransactionType TransactionType type
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(transactionService.findAllByUserId(
                 accessToken,
@@ -46,5 +42,15 @@ public class TransactionController {
                 year,
                 bankAccountId,
                 type));
+    }
+
+    @PutMapping("/{transactionId}")
+    public ResponseEntity<Object> update(
+            @RequestHeader(value = "Authorization") String accessToken,
+            @PathVariable UUID transactionId,
+            @RequestBody @Valid TransactionDto updateTransactionDto
+    ) {
+    return ResponseEntity.status(HttpStatus.OK).body(transactionService.update(accessToken, transactionId,
+            updateTransactionDto));
     }
 }
