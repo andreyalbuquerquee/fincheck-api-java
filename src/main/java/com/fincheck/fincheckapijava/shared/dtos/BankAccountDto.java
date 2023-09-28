@@ -1,6 +1,6 @@
 package com.fincheck.fincheckapijava.shared.dtos;
 
-import com.fincheck.fincheckapijava.validation.ValidateBankAccountType;
+import com.fincheck.fincheckapijava.validation.BankAccountType;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -19,7 +19,7 @@ public record BankAccountDto(
     @NotNull(message = "Initial balance may not be empty!")
     Double initialBalance,
 
-    @ValidateBankAccountType(message = "type must be one of the following values: CHECKING, INVESTMENT, CASH")
+    @BankAccountType(message = "type must be one of the following values: CHECKING, INVESTMENT, CASH")
     String type
 ) {
     

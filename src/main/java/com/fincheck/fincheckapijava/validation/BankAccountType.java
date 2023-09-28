@@ -20,7 +20,7 @@ import jakarta.validation.Payload;
 @Retention(RUNTIME)
 @Documented
 @Constraint(validatedBy = BankAccountTypeValidator.class)
-public @interface ValidateBankAccountType {
+public @interface BankAccountType {
     String message();
 
     Class<?>[] groups() default { };
