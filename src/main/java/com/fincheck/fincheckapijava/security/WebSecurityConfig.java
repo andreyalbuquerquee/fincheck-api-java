@@ -43,7 +43,7 @@ public class WebSecurityConfig {
         .requestMatchers(HttpMethod.POST, "/auth/signin").permitAll()
         .anyRequest().authenticated())
         .exceptionHandling(exHandler -> exHandler.authenticationEntryPoint(customBasicAuthenticationEntryPoint))
-        // Before every httpRequest, we shoul use our own filters
+        // Before every httpRequest, we should use our own filters
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         .build();
     }
