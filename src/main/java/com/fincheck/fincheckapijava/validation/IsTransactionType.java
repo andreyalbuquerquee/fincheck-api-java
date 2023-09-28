@@ -20,8 +20,8 @@ import jakarta.validation.Payload;
 @Retention(RUNTIME)
 @Documented
 @Constraint(validatedBy = TransactionTypeValidator.class)
-public @interface ValidateTransactionType {
-    String message();
+public @interface IsTransactionType {
+    String message() default "type must be one of the following values: INCOME, EXPENSE";
 
     Class<?>[] groups() default { };
 

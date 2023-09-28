@@ -6,7 +6,7 @@ import java.util.List;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class TransactionTypeValidator implements ConstraintValidator<ValidateTransactionType ,String> {
+public class TransactionTypeValidator implements ConstraintValidator<IsTransactionType, String> {
 
     @Override
     public boolean isValid(String transactionType, ConstraintValidatorContext context) {
