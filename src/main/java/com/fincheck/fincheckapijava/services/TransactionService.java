@@ -44,7 +44,7 @@ public class TransactionService {
         Optional<User> user = usersRepo.findById(currentUserId.get());
 
         validateEntitiesOwnership(user.get(), UUID.fromString(createTransactionDto.bankAccountId()),
-                createTransactionDto.categoryId());
+                UUID.fromString(createTransactionDto.categoryId()), null);
 
         Optional<BankAccount> bankAccount =
                 bankAccountsRepo.findById(UUID.fromString(createTransactionDto.bankAccountId()));
@@ -98,8 +98,28 @@ public class TransactionService {
         return transactionsRepo.findByUserAndDate(currentUserId, startDate, endDate);
     }
 
-    private void validateEntitiesOwnership(User user, UUID bankAccountId, String categoryId) {
-        Optional<Category> category = categoriesRepo.findByIdAndUser(UUID.fromString(categoryId), user);
+    public Transaction update(String accessToken, UUID transactionId, TransactionDto updateTransactionDto) {
+        UUID currentUserId = jwtService.activeUserId(accessToken.substring(7)).get();
+        User user = usersRepo.findById(currentUserId).get();
+
+        validateEntitiesOwnership(
+                user,
+                UUID.fromString(updateTransactionDto.bankAccountId()),
+                UUID.fromString(updateTransactionDto.categoryId()),
+                transactionId);
+
+        BankAccount bankAccount =
+                bankAccountsRepo.findById(UUID.fromString(updateTransactionDto.bankAccountId())).get();
+        Category category = categoriesRepo.findById(UUID.fromString(updateTransactionDto.categoryId())).get();
+
+        Transaction transaction = new Transaction(updateTransactionDto, user, bankAccount, category);
+        transaction.setId(transactionId);
+
+        return transactionsRepo.save(transaction);
+    }
+
+    private void validateEntitiesOwnership(User user, UUID bankAccountId, UUID categoryId, UUID transactionId) {
+        Optional<Category> category = categoriesRepo.findByIdAndUser(categoryId, user);
 
         if (category.isEmpty()) {
             throw new NotFoundException("Category not found!");
@@ -110,6 +130,13 @@ public class TransactionService {
         if (bankAccount.isEmpty()) {
             throw new NotFoundException("Bank Account not found!");
         }
+
+        if (transactionId != null) {
+            Optional<Transaction> transaction = transactionsRepo.findByIdAndUser(transactionId, user);
+
+            if (transaction.isEmpty()) throw new NotFoundException("Transaction not found!");
+        }
+
     }
 
 
