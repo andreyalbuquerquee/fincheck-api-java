@@ -1,19 +1,14 @@
 package com.fincheck.fincheckapijava.model;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
+import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fincheck.fincheckapijava.shared.dtos.SignupDto;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
@@ -31,6 +26,9 @@ public class User implements UserDetails {
     
     @Column(name = "password", nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    List<BankAccount> bankAccounts;
 
     public User() {}
 
@@ -68,6 +66,8 @@ public class User implements UserDetails {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public List<BankAccount> getBankAccounts() { return bankAccounts; }
     //#endregion
 
     //#region Implements from userDetails
