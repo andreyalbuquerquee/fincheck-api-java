@@ -28,7 +28,13 @@ public class User implements UserDetails {
     private String password;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    List<BankAccount> bankAccounts;
+    private List<BankAccount> bankAccounts;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Category> categories;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Transaction> transactions;
 
     public User() {}
 
@@ -68,6 +74,10 @@ public class User implements UserDetails {
     }
 
     public List<BankAccount> getBankAccounts() { return bankAccounts; }
+
+    public List<Category> getCategories() { return categories; }
+
+    public List<Transaction> getTransactions() { return transactions; }
     //#endregion
 
     //#region Implements from userDetails
