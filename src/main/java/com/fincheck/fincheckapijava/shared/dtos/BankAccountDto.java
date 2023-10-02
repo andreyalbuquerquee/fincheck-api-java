@@ -1,26 +1,20 @@
 package com.fincheck.fincheckapijava.shared.dtos;
 
-import com.fincheck.fincheckapijava.validation.BankAccountType;
+import com.fincheck.fincheckapijava.model.BankAccount;
+import com.fincheck.fincheckapijava.model.enums.BankAccountType;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import java.util.UUID;
 
 public record BankAccountDto(
-    
-    @NotEmpty(message = "Name may not be empty!")
-    @Pattern(regexp = "^[a-zA-Z\s]*$", message = "Name has to be only text")
-    String name,
-
-    @NotEmpty(message = "Color may not be empty!")
-    @Pattern(regexp = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$", message = "Color has to be on hexcode format!")
-    String color,
-
-    @NotNull(message = "Initial balance may not be empty!")
-    Double initialBalance,
-
-    @BankAccountType(message = "type must be one of the following values: CHECKING, INVESTMENT, CASH")
-    String type
-) {
-    
+        UUID id,
+        String name,
+        double initialBalance,
+        String color,
+        BankAccountType type,
+        UUID userId,
+        double currentBalance) {
+    public BankAccountDto(BankAccount bankAccount, double currentBalance) {
+        this(bankAccount.getId(), bankAccount.getName(), bankAccount.getInitialBalance(), bankAccount.getColor(),
+                bankAccount.getType(), bankAccount.getUserId(), currentBalance);
+    }
 }
