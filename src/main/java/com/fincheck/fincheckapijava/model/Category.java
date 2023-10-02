@@ -1,7 +1,9 @@
 package com.fincheck.fincheckapijava.model;
 
+import java.util.List;
 import java.util.UUID;
 
+import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
@@ -9,16 +11,6 @@ import org.hibernate.annotations.Type;
 import com.fincheck.fincheckapijava.model.enums.TransactionType;
 
 import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "categories")
@@ -43,10 +35,13 @@ public class Category {
     @Enumerated(EnumType.STRING)
     @Type(PostgreSQLEnumType.class)
     private TransactionType type;
+
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+    private List<Transaction> transactions;
     
     public Category() {}
     
-    
+
     public Category(String name, String icon, TransactionType type, User user) {
         this.user = user;
         this.name = name;
@@ -94,6 +89,8 @@ public class Category {
     public void setType(TransactionType type) {
         this.type = type;
     }
+
+    public List<Transaction> getTransactions() { return transactions; }
 
     //#endregion
 }
