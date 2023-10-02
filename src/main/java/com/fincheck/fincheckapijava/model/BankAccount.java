@@ -1,25 +1,18 @@
 package com.fincheck.fincheckapijava.model;
 
+import java.util.List;
 import java.util.UUID;
 
+import com.fincheck.fincheckapijava.shared.dtos.UpdateBankAccountDto;
+import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 
 import com.fincheck.fincheckapijava.model.enums.BankAccountType;
-import com.fincheck.fincheckapijava.shared.dtos.BankAccountDto;
+import com.fincheck.fincheckapijava.shared.dtos.CreateBankAccountDto;
 
 import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "bank_accounts")
@@ -47,13 +40,24 @@ public class BankAccount {
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
+    @OneToMany(mappedBy = "bankAccount", fetch = FetchType.LAZY)
+    private List<Transaction> transactions;
+
     public BankAccount() {}
     
-    public BankAccount(BankAccountDto bankAccountDto, User user) {
-        this.name = bankAccountDto.name();
-        this.initialBalance = bankAccountDto.initialBalance();
-        this.color = bankAccountDto.color();
-        this.type = BankAccountType.valueOf(bankAccountDto.type());
+    public BankAccount(CreateBankAccountDto createBankAccountDto, User user) {
+        this.name = createBankAccountDto.name();
+        this.initialBalance = createBankAccountDto.initialBalance();
+        this.color = createBankAccountDto.color();
+        this.type = BankAccountType.valueOf(createBankAccountDto.type());
+        this.user = user;
+    }
+
+    public BankAccount(UpdateBankAccountDto updateBankAccountDto, User user) {
+        this.name = updateBankAccountDto.name();
+        this.initialBalance = updateBankAccountDto.initialBalance();
+        this.color = updateBankAccountDto.color();
+        this.type = BankAccountType.valueOf(updateBankAccountDto.type());
         this.user = user;
     }
 
@@ -105,5 +109,7 @@ public class BankAccount {
     public void setUserId(User userId) {
         this.user = userId;
     }
+
+    public List<Transaction> getTransactions() { return transactions; }
     //#endregion
 }
