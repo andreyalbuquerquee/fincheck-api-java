@@ -15,10 +15,10 @@ import com.fincheck.fincheckapijava.services.CategoryService;
 public class CategoryController {
     
     @Autowired
-    CategoryService categoryService;
+    CategoryService service;
     
     @GetMapping
     public ResponseEntity<Object> findAll(@RequestHeader(value = "Authorization") String accessToken) {
-        return ResponseEntity.status(HttpStatus.OK).body(categoryService.findAllByUserId(accessToken));
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAllByUserId(accessToken));
     }
 }

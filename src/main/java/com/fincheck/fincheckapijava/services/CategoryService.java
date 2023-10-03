@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.fincheck.fincheckapijava.exceptions.NotFoundException;
+import com.fincheck.fincheckapijava.shared.dtos.CategoryDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +27,11 @@ public class CategoryService {
     @Autowired
     JWTService jwtService;
 
-    public List<Category> findAllByUserId(String accessToken) {
-        Optional<UUID> currentUserId = jwtService.activeUserId(accessToken.substring(7));
+    public List<CategoryDto> findAllByUserId(String accessToken) {
+        Optional<UUID> currentUserId =
+                jwtService.activeUserId(accessToken.substring(7));
         Optional<User> user = usersRepository.findById(currentUserId.get());
 
-        return categoriesRepo.findAllByUser(user.get());
+        return categoriesRepo.findAllByUser(user.get()).stream().map(CategoryDto::new).toList();
     }
 }
