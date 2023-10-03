@@ -1,9 +1,6 @@
-# Controle de estacionamento | Parking Spot
-[![NPM](https://img.shields.io/npm/l/react)](https://github.com/GabrielVictorDEV/API-Controle_de_estacionamento/blob/main/LICENCE) 
+# Fincheck
 
-# Sobre o projeto
-
-A API FinCheck é uma aplicação Java Spring Boot que oferece recursos para gestão de finanças pessoais. A API inclui autenticação de usuário, criação e gerenciamento de contas bancárias, transações e categorias das transações.
+A Rest API FinCheck é uma aplicação Java Spring Boot que oferece recursos para gestão de finanças pessoais. A API inclui autenticação de usuário, criação e gerenciamento de contas bancárias, transações e categorias das transações.
 
 Além disso, a API oferece a funcionalidade de busca de usuários por ID, tornando o processo de gerenciamento mais eficiente. A integração do Pageable na API permite que os resultados da busca possam ser paginados, facilitando a navegação e a visualização dos dados.
 
