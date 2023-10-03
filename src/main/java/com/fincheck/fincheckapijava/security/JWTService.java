@@ -39,7 +39,7 @@ public class JWTService {
     public Optional<UUID> activeUserId(String token) {
         try {
             Claims claims = parse(token).getBody();
-            return Optional.ofNullable(UUID.fromString(claims.getSubject()));
+            return Optional.of(UUID.fromString(claims.getSubject()));
         } catch (Exception e) {
            return Optional.empty(); 
         }
