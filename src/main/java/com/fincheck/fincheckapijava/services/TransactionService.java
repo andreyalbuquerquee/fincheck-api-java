@@ -110,6 +110,7 @@ public class TransactionService {
 
         BankAccount bankAccount =
                 bankAccountsRepo.findById(UUID.fromString(updateTransactionDto.bankAccountId())).get();
+
         Category category = categoriesRepo.findById(UUID.fromString(updateTransactionDto.categoryId())).get();
 
         Transaction transaction = new Transaction(updateTransactionDto, user, bankAccount, category);
@@ -118,17 +119,32 @@ public class TransactionService {
         return transactionsRepo.save(transaction);
     }
 
-    private void validateEntitiesOwnership(User user, UUID bankAccountId, UUID categoryId, UUID transactionId) {
-        Optional<Category> category = categoriesRepo.findByIdAndUser(categoryId, user);
+    public Object remove(String accessToken, UUID transactionId) {
+        UUID currentUserId = jwtService.activeUserId(accessToken.substring(7)).get();
+        User user = usersRepo.findById(currentUserId).get();
 
-        if (category.isEmpty()) {
-            throw new NotFoundException("Category not found!");
+        validateEntitiesOwnership(user, null, null, transactionId);
+
+        transactionsRepo.deleteById(transactionId);
+
+        return null;
+    }
+
+    private void validateEntitiesOwnership(User user, UUID bankAccountId, UUID categoryId, UUID transactionId) {
+        if (categoryId != null) {
+            Optional<Category> category = categoriesRepo.findByIdAndUser(categoryId, user);
+
+            if (category.isEmpty()) {
+                throw new NotFoundException("Category not found!");
+            }
         }
 
-        Optional<BankAccount> bankAccount = bankAccountsRepo.findByIdAndUser(bankAccountId, user);
+        if(bankAccountId != null) {
+            Optional<BankAccount> bankAccount = bankAccountsRepo.findByIdAndUser(bankAccountId, user);
 
-        if (bankAccount.isEmpty()) {
-            throw new NotFoundException("Bank Account not found!");
+            if (bankAccount.isEmpty()) {
+                throw new NotFoundException("Bank Account not found!");
+            }
         }
 
         if (transactionId != null) {

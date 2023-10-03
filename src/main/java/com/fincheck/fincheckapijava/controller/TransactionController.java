@@ -18,12 +18,14 @@ import com.fincheck.fincheckapijava.shared.dtos.TransactionDto;
 public class TransactionController {
 
     @Autowired
-    TransactionService transactionService;
+    TransactionService service;
 
     @PostMapping
-    public ResponseEntity<Object> create(@RequestHeader(value = "Authorization") String accessToken,
-                                         @RequestBody @Valid TransactionDto createTransactionDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(transactionService.create(
+    public ResponseEntity<Object> create(
+            @RequestHeader(value = "Authorization") String accessToken,
+            @RequestBody @Valid TransactionDto createTransactionDto
+    ) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(
                 accessToken,
                 createTransactionDto));
     }
@@ -36,7 +38,7 @@ public class TransactionController {
             @RequestParam(required = false) UUID bankAccountId,
             @RequestParam(required = false) @IsTransactionType TransactionType type
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(transactionService.findAllByUserId(
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAllByUserId(
                 accessToken,
                 month,
                 year,
@@ -50,7 +52,17 @@ public class TransactionController {
             @PathVariable UUID transactionId,
             @RequestBody @Valid TransactionDto updateTransactionDto
     ) {
-    return ResponseEntity.status(HttpStatus.OK).body(transactionService.update(accessToken, transactionId,
-            updateTransactionDto));
+        return ResponseEntity.status(HttpStatus.OK).body(service.update(
+                accessToken,
+                transactionId,
+                updateTransactionDto));
+    }
+
+    @DeleteMapping("/{transactionId}")
+    public ResponseEntity<Object> remove(
+            @RequestHeader(value = "Authorization") String accessToken,
+            @PathVariable UUID transactionId
+    ) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.remove(accessToken, transactionId));
     }
 }
