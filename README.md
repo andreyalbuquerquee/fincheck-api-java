@@ -55,7 +55,7 @@ A API utiliza autenticação baseada em tokens JSON Web (JWT). Para acessar endp
 
    ```shell
    Authorization: Bearer seu-token-jwt
-```
+   ```
 
 ## Endpoints
 
@@ -91,7 +91,7 @@ A API utiliza autenticação baseada em tokens JSON Web (JWT). Para acessar endp
      "name": string,
      "initialBalance": double,
      "color": string, (hexcode)
- 		  "type": string ("CHECKING", "INVESTMENT", "CASH")
+     "type": string ("CHECKING", "INVESTMENT", "CASH")
     }
 >    ```
 - Atualizar uma conta bancária existente: `PUT /bank-accounts/:id`
@@ -101,7 +101,7 @@ A API utiliza autenticação baseada em tokens JSON Web (JWT). Para acessar endp
      "name": string,
      "initialBalance": double,
      "color": string, (hexcode)
- 		  "type": string ("CHECKING", "INVESTMENT", "CASH")
+     "type": string ("CHECKING", "INVESTMENT", "CASH")
     }
 >    ```
 - Excluir uma conta bancária: `DELETE /bank-accounts/:id`
@@ -116,11 +116,11 @@ A API utiliza autenticação baseada em tokens JSON Web (JWT). Para acessar endp
 >    // body
 >   {
      "bankAccountId": string, (UUID)
-		   "categoryId": string, (UUID)
-		   "name": string
-		   "value": double,
-		   "date": string, (ISO-8601)
-		   "type": string, ("INCOME", "EXPENSE")
+     "categoryId": string, (UUID)
+     "name": string
+     "value": double,
+     "date": string, (ISO-8601)
+     "type": string, ("INCOME", "EXPENSE")
     }
 >    ```
 - Atualizar uma transação existente: `PUT /transactions/:id`
@@ -128,11 +128,11 @@ A API utiliza autenticação baseada em tokens JSON Web (JWT). Para acessar endp
 >    // body
 >    {
       "bankAccountId": string, (UUID)
- 		   "categoryId": string, (UUID)
- 		   "name": string
- 		   "value": double,
- 		   "date": string, (ISO-8601)
- 		   "type": string, ("INCOME", "EXPENSE")
+      "categoryId": string, (UUID)
+      "name": string
+      "value": double,
+      "date": string, (ISO-8601)
+      "type": string, ("INCOME", "EXPENSE")
     }
 >    ```
 - Excluir uma transação: `DELETE /transactions/:id`
