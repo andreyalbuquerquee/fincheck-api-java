@@ -88,21 +88,21 @@ A API utiliza autenticação baseada em tokens JSON Web (JWT). Para acessar endp
 >  ```
 >    // body
 >   {
-     "name": string,
-     "initialBalance": double,
-     "color": string, (hexcode)
-     "type": string ("CHECKING", "INVESTMENT", "CASH")
-    }
+>     "name": string,
+>     "initialBalance": double,
+>     "color": string, (hexcode)
+>     "type": string ("CHECKING", "INVESTMENT", "CASH")
+>    }
 >    ```
 - Atualizar uma conta bancária existente: `PUT /bank-accounts/:id`
 >  ```
 >    // body
 >    {
-     "name": string,
-     "initialBalance": double,
-     "color": string, (hexcode)
-     "type": string ("CHECKING", "INVESTMENT", "CASH")
-    }
+>     "name": string,
+>     "initialBalance": double,
+>     "color": string, (hexcode)
+>     "type": string ("CHECKING", "INVESTMENT", "CASH")
+>    }
 >    ```
 - Excluir uma conta bancária: `DELETE /bank-accounts/:id`
 
@@ -115,25 +115,25 @@ A API utiliza autenticação baseada em tokens JSON Web (JWT). Para acessar endp
 >  ```
 >    // body
 >   {
-     "bankAccountId": string, (UUID)
-     "categoryId": string, (UUID)
-     "name": string
-     "value": double,
-     "date": string, (ISO-8601)
-     "type": string, ("INCOME", "EXPENSE")
-    }
+>     "bankAccountId": string, (UUID)
+>     "categoryId": string, (UUID)
+>     "name": string
+>     "value": double,
+>     "date": string, (ISO-8601)
+>     "type": string, ("INCOME", "EXPENSE")
+>    }
 >    ```
 - Atualizar uma transação existente: `PUT /transactions/:id`
 >  ```
 >    // body
 >    {
-      "bankAccountId": string, (UUID)
-      "categoryId": string, (UUID)
-      "name": string
-      "value": double,
-      "date": string, (ISO-8601)
-      "type": string, ("INCOME", "EXPENSE")
-    }
+>      "bankAccountId": string, (UUID)
+>      "categoryId": string, (UUID)
+>      "name": string
+>      "value": double,
+>      "date": string, (ISO-8601)
+>      "type": string, ("INCOME", "EXPENSE")
+>    }
 >    ```
 - Excluir uma transação: `DELETE /transactions/:id`
 
