@@ -2,6 +2,7 @@ package com.fincheck.fincheckapijava.model;
 
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.UUID;
@@ -55,7 +56,7 @@ public class Transaction {
     private double value;
 
     @Column(name = "date", nullable = false)
-    private Calendar date;
+    private LocalDateTime date;
 
     @Column(name = "type", columnDefinition = "transaction_type", nullable = false)
     @Enumerated(EnumType.STRING)
@@ -72,7 +73,6 @@ public class Transaction {
         this.name = transactionDto.name();
         this.value = transactionDto.value();
         this.date = transactionDto.date();
-        this.date.setTimeZone(TimeZone.getDefault());
         this.type = TransactionType.valueOf(transactionDto.type());
     }
 
@@ -125,13 +125,12 @@ public class Transaction {
         this.value = value;
     }
 
-    public Timestamp getDate() {
-        return new Timestamp(date.getTimeInMillis() - 10800000);
+    public LocalDateTime getDate() {
+        return date;
     }
 
-    public void setDate(Calendar date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
-        this.date.setTimeZone(TimeZone.getDefault());
     }
 
     public TransactionType getType() {
