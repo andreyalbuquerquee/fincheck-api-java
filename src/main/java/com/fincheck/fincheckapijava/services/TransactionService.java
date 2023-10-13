@@ -1,5 +1,6 @@
 package com.fincheck.fincheckapijava.services;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Optional;
 import java.util.TimeZone;
@@ -64,23 +65,8 @@ public class TransactionService {
 
         UUID currentUserId = jwtService.activeUserId(accessToken.substring(7)).get();
 
-        Calendar calendarDate = Calendar.getInstance();
-        calendarDate.setTimeZone(TimeZone.getDefault());
-
-        calendarDate.set(Calendar.YEAR, year);
-        calendarDate.set(Calendar.MONTH, month - 1);
-        calendarDate.set(Calendar.DAY_OF_MONTH, 1);
-
-        calendarDate.set(Calendar.HOUR_OF_DAY, 0);
-        calendarDate.set(Calendar.MINUTE, 0);
-        calendarDate.set(Calendar.SECOND, 0);
-        calendarDate.set(Calendar.MILLISECOND, 0);
-
-        Calendar startDate = Calendar.getInstance();
-        startDate.setTimeInMillis(calendarDate.getTimeInMillis());
-        calendarDate.add(Calendar.MONTH, 1);
-        Calendar endDate = Calendar.getInstance();
-        endDate.setTimeInMillis(calendarDate.getTimeInMillis());
+        LocalDate startDate = LocalDate.of(year, month, 1);
+        LocalDate endDate = LocalDate.of(year, month + 1, 1);
 
         if (bankAccountId != null && type != null) {
             return transactionsRepo.findByUserAndDateAndBankAccountAndType(currentUserId, startDate, endDate,

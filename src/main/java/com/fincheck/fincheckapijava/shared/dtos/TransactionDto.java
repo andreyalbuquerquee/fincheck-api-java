@@ -1,5 +1,6 @@
 package com.fincheck.fincheckapijava.shared.dtos;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 import com.fincheck.fincheckapijava.validation.IsUuid;
@@ -26,7 +27,7 @@ public record TransactionDto(
     double value,
 
     @NotNull(message = "Date may not be null!")
-    Calendar date,
+    LocalDateTime date,
 
     @IsTransactionType()
     String type
