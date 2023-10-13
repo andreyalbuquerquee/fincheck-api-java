@@ -21,9 +21,9 @@ import com.fincheck.fincheckapijava.model.enums.TransactionType;
 import com.fincheck.fincheckapijava.repository.CategoriesRepository;
 import com.fincheck.fincheckapijava.repository.UsersRepository;
 import com.fincheck.fincheckapijava.security.JWTService;
-import com.fincheck.fincheckapijava.shared.dtos.AccessTokenDto;
-import com.fincheck.fincheckapijava.shared.dtos.SigninDto;
-import com.fincheck.fincheckapijava.shared.dtos.SignupDto;
+import com.fincheck.fincheckapijava.shared.dtos.auth.AccessTokenDto;
+import com.fincheck.fincheckapijava.shared.dtos.auth.SigninDto;
+import com.fincheck.fincheckapijava.shared.dtos.auth.SignupDto;
 
 
 @Service

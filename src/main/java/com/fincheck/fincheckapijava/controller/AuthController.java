@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.fincheck.fincheckapijava.services.AuthService;
-import com.fincheck.fincheckapijava.shared.dtos.SigninDto;
-import com.fincheck.fincheckapijava.shared.dtos.SignupDto;
+import com.fincheck.fincheckapijava.shared.dtos.auth.SigninDto;
+import com.fincheck.fincheckapijava.shared.dtos.auth.SignupDto;
 
 import jakarta.validation.Valid;
 

@@ -1,9 +1,7 @@
 package com.fincheck.fincheckapijava.services;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Optional;
-import java.util.TimeZone;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,7 @@ import com.fincheck.fincheckapijava.repository.CategoriesRepository;
 import com.fincheck.fincheckapijava.repository.TransactionsRepository;
 import com.fincheck.fincheckapijava.repository.UsersRepository;
 import com.fincheck.fincheckapijava.security.JWTService;
-import com.fincheck.fincheckapijava.shared.dtos.TransactionDto;
+import com.fincheck.fincheckapijava.shared.dtos.transaction.TransactionDto;
 
 @Service
 public class TransactionService {

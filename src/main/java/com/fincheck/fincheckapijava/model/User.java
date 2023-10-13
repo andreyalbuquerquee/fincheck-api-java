@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fincheck.fincheckapijava.shared.dtos.SignupDto;
+import com.fincheck.fincheckapijava.shared.dtos.auth.SignupDto;
 
 @Entity
 @Table(name = "users")

@@ -1,4 +1,4 @@
-package com.fincheck.fincheckapijava.shared.dtos;
+package com.fincheck.fincheckapijava.shared.dtos.category;
 
 import com.fincheck.fincheckapijava.model.Category;
 import com.fincheck.fincheckapijava.model.enums.TransactionType;

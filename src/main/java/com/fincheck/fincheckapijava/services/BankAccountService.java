@@ -4,10 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.fincheck.fincheckapijava.model.Transaction;
 import com.fincheck.fincheckapijava.model.enums.TransactionType;
-import com.fincheck.fincheckapijava.shared.dtos.BankAccountDto;
-import com.fincheck.fincheckapijava.shared.dtos.UpdateBankAccountDto;
+import com.fincheck.fincheckapijava.shared.dtos.bankAccount.BankAccountDto;
+import com.fincheck.fincheckapijava.shared.dtos.bankAccount.UpdateBankAccountDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,7 @@ import com.fincheck.fincheckapijava.model.User;
 import com.fincheck.fincheckapijava.repository.BankAccountRepository;
 import com.fincheck.fincheckapijava.repository.UsersRepository;
 import com.fincheck.fincheckapijava.security.JWTService;
-import com.fincheck.fincheckapijava.shared.dtos.CreateBankAccountDto;
+import com.fincheck.fincheckapijava.shared.dtos.bankAccount.CreateBankAccountDto;
 
 @Service
 public class BankAccountService {

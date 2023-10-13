@@ -3,14 +3,14 @@ package com.fincheck.fincheckapijava.model;
 import java.util.List;
 import java.util.UUID;
 
-import com.fincheck.fincheckapijava.shared.dtos.UpdateBankAccountDto;
+import com.fincheck.fincheckapijava.shared.dtos.bankAccount.UpdateBankAccountDto;
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 
 import com.fincheck.fincheckapijava.model.enums.BankAccountType;
-import com.fincheck.fincheckapijava.shared.dtos.CreateBankAccountDto;
+import com.fincheck.fincheckapijava.shared.dtos.bankAccount.CreateBankAccountDto;
 
 import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
 

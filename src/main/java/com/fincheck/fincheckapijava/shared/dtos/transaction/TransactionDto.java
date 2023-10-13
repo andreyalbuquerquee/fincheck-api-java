@@ -1,4 +1,4 @@
-package com.fincheck.fincheckapijava.shared.dtos;
+package com.fincheck.fincheckapijava.shared.dtos.transaction;
 
 import java.time.LocalDateTime;
 import java.util.Calendar;

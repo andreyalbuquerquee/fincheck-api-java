@@ -1,10 +1,7 @@
 package com.fincheck.fincheckapijava.model;
 
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.TimeZone;
 import java.util.UUID;
 
 import org.hibernate.annotations.OnDelete;
@@ -12,7 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 
 import com.fincheck.fincheckapijava.model.enums.TransactionType;
-import com.fincheck.fincheckapijava.shared.dtos.TransactionDto;
+import com.fincheck.fincheckapijava.shared.dtos.transaction.TransactionDto;
 
 import io.hypersistence.utils.hibernate.type.basic.PostgreSQLEnumType;
 import jakarta.persistence.Column;

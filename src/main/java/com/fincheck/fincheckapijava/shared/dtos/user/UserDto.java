@@ -1,10 +1,10 @@
-package com.fincheck.fincheckapijava.shared.entities;
+package com.fincheck.fincheckapijava.shared.dtos.user;
 
-public class MeResponse {
+public class UserDto {
     private String name;
     private String email;
 
-    public MeResponse(String name, String email) {
+    public UserDto(String name, String email) {
         this.name = name;
         this.email = email;
     }

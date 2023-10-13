@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.fincheck.fincheckapijava.services.TransactionService;
-import com.fincheck.fincheckapijava.shared.dtos.TransactionDto;
+import com.fincheck.fincheckapijava.shared.dtos.transaction.TransactionDto;
 
 @RestController
 @RequestMapping("/transactions")

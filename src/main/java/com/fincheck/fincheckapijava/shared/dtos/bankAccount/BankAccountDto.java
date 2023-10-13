@@ -1,4 +1,4 @@
-package com.fincheck.fincheckapijava.shared.dtos;
+package com.fincheck.fincheckapijava.shared.dtos.bankAccount;
 
 import com.fincheck.fincheckapijava.model.BankAccount;
 import com.fincheck.fincheckapijava.model.enums.BankAccountType;

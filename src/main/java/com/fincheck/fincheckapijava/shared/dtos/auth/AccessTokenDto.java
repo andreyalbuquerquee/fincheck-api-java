@@ -1,4 +1,4 @@
-package com.fincheck.fincheckapijava.shared.dtos;
+package com.fincheck.fincheckapijava.shared.dtos.auth;
 
 public class AccessTokenDto {
     private String accessToken;
@@ -11,7 +11,7 @@ public class AccessTokenDto {
         return accessToken;
     }
 
-    public void setAccessToken(String acessToken) {
-        this.accessToken = acessToken;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 }

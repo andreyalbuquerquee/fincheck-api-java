@@ -4,12 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.fincheck.fincheckapijava.exceptions.NotFoundException;
-import com.fincheck.fincheckapijava.shared.dtos.CategoryDto;
+import com.fincheck.fincheckapijava.shared.dtos.category.CategoryDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fincheck.fincheckapijava.model.Category;
 import com.fincheck.fincheckapijava.model.User;
 import com.fincheck.fincheckapijava.repository.CategoriesRepository;
 import com.fincheck.fincheckapijava.repository.UsersRepository;
