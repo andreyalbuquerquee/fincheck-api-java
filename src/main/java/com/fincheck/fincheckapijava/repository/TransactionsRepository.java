@@ -1,7 +1,6 @@
 package com.fincheck.fincheckapijava.repository;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

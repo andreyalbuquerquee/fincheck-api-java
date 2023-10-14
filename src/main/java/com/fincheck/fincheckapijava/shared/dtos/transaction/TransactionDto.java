@@ -1,7 +1,6 @@
 package com.fincheck.fincheckapijava.shared.dtos.transaction;
 
 import java.time.LocalDateTime;
-import java.util.Calendar;
 
 import com.fincheck.fincheckapijava.validation.IsUuid;
 import com.fincheck.fincheckapijava.validation.IsTransactionType;
