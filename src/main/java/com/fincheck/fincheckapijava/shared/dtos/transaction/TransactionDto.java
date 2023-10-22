@@ -18,14 +18,14 @@ public record TransactionDto(
     @IsUuid
     String categoryId,
 
-    @NotEmpty(message = "Name may not be empty!")
+    @NotEmpty(message = "name may not be empty!")
     String name,
 
-    @NotNull(message = "Value may not be null!")
-    @Positive(message = "Value has to be a positive number!")
+    @NotNull(message = "value may not be null!")
+    @Positive(message = "value has to be a positive number!")
     double value,
 
-    @NotNull(message = "Date may not be null!")
+    @NotNull(message = "date may not be null!")
     LocalDateTime date,
 
     @IsTransactionType()

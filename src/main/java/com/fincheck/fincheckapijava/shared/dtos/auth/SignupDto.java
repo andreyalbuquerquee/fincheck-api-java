@@ -6,15 +6,15 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 public record SignupDto (
-    @NotEmpty(message = "Nome não deve estar vazio!")
-    @NotBlank(message = "Nome não deve estar vazio!")    
+    @NotEmpty(message = "name may not be empty!")
+    @NotBlank(message = "name may not be empty!")
     String name,
-    @NotEmpty(message = "Email não deve estar vazio!")
-    @NotBlank(message = "Email não deve estar vazio!")
-    @Email(message = "Informe um e-mail válido!")
+    @NotEmpty(message = "email may not be empty!")
+    @NotBlank(message = "email may not be empty!")
+    @Email(message = "invalid email!")
     String email,
-    @NotEmpty(message = "Senha não pode estar vazia!")
-    @Size(min = 8, message = "Senha deve ter pelo menos 8 caracteres")
+    @NotEmpty(message = "password may not be empty!")
+    @Size(min = 8, message = "password should have at least 8 characters!")
     String password
 ) {}
 
