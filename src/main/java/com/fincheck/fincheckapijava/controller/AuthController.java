@@ -26,9 +26,5 @@ public class AuthController {
     public ResponseEntity<Object> signin(@RequestBody @Valid SigninDto signinDto) {
         return ResponseEntity.status(HttpStatus.OK).body(service.signin(signinDto));
     }
-
-    @GetMapping("/teste")
-    public ResponseEntity<Object> teste(@RequestHeader(value = "Authorization") String accessToken) {
-        return ResponseEntity.status(HttpStatus.OK).body(service.getCurrentUserId(accessToken));
-    }
+    
 }
