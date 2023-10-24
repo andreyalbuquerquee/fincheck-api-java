@@ -2,9 +2,6 @@
 
 A Rest API FinCheck é uma aplicação Java Spring Boot que oferece recursos para gestão de finanças pessoais. A API inclui autenticação de usuário, criação e gerenciamento de contas bancárias, transações e categorias das transações.
 
-Além disso, a API oferece a funcionalidade de busca de usuários por ID, tornando o processo de gerenciamento mais eficiente. A integração do Pageable na API permite que os resultados da busca possam ser paginados, facilitando a navegação e a visualização dos dados.
-
-Em resumo, o projeto Parking Spot é uma solução completa para gerenciamento de estacionamentos em condomínios.
 
 ## Tecnologias Utilizadas
 
